@@ -4,16 +4,14 @@ class PokemonsController < ApplicationController
   # GET /pokemons
   # GET /pokemons.json
   def index
-    binding.pry
     if !session[:location_detected]
-      results = request.location
-      session[:location_detected] = true
+      session[:location_detected] = request.location
     end
-    if results.data["latitude"] == "0"# IP Geocoding didin't work
+    if session[:location_detected]["data"]["latitude"] == "0"# IP Geocoding didin't work
       @pokemons = Pokemon.all
     else
-      @visitor_city = results.data["city"]
-      @pokemons = Pokemon.near([results.data["latitude"], results.data["longitude"]], 20)
+      @visitor_city = session[:location_detected]["data"]["city"]
+      @pokemons = Pokemon.near([session[:location_detected]["data"]["latitude"], session[:location_detected]["data"]["longitude"]], 20)
     end
     # Let's DYNAMICALLY build the markers for the view.
     @markers = Gmaps4rails.build_markers(@pokemons) do |pokemon, marker|
@@ -48,7 +46,7 @@ class PokemonsController < ApplicationController
 
     respond_to do |format|
       if @pokemon.save
-        format.html { redirect_to @pokemon, notice: 'Pokemon was successfully created.' }
+        format.html { redirect_to @pokemons, notice: 'Pokemon was successfully created.' }
         format.json { render :show, status: :created, location: @pokemon }
       else
         format.html { render :new }
@@ -89,6 +87,6 @@ class PokemonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pokemon_params
-      params.require(:pokemon).permit(:name, :address, :type, :picture)
+      params.require(:pokemon).permit(:name, :address, :category, :front_default, :back_default)
     end
 end

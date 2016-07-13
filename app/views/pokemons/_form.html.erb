@@ -1,12 +1,16 @@
+
 <%= simple_form_for(@pokemon) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :address %>
+    <%= f.input :name, label: false, placeholder: "Astifion" %>
+    <%= f.input :category, label: false, collection: %w(Poison Fire Flying Water Bug Normal), prompt: "Which category ?" %>
+    <%= f.input :address, label: false, placeholder: "Where did you catch it ?" %>
+    <%= f.input :front_default, label: false, placeholder: "Any image url to provide as a photo ?" %>
+    <%= f.input :back_default, label: false, placeholder: "Might have another one ?" %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, value:"Save it!", class:"btn btn-success" %>
   </div>
 <% end %>

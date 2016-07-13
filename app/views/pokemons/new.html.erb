@@ -1,5 +1,9 @@
-<h1>New Pokemon</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', pokemons_path %>
+<h1 class="text-center">A new Pokemon !</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <%= render 'form' %>
+      <p class="text-right"><%= link_to 'Back to PokeLand', pokemons_path %></p>
+    </div>
+  </div>
+</div>
