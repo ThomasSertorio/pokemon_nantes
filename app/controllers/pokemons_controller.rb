@@ -4,12 +4,23 @@ class PokemonsController < ApplicationController
   # GET /pokemons
   # GET /pokemons.json
   def index
-    @pokemons = Pokemon.all
+    binding.pry
+    if !session[:location_detected]
+      results = request.location
+      session[:location_detected] = true
+    end
+    if results.data["latitude"] == "0"# IP Geocoding didin't work
+      @pokemons = Pokemon.all
+    else
+      @visitor_city = results.data["city"]
+      @pokemons = Pokemon.near([results.data["latitude"], results.data["longitude"]], 20)
+    end
     # Let's DYNAMICALLY build the markers for the view.
     @markers = Gmaps4rails.build_markers(@pokemons) do |pokemon, marker|
       marker.lat pokemon.latitude
       marker.lng pokemon.longitude
-      # marker.picture ({url: "#{view_context.image_url("pokeball.png")}", width: 40, height: 60})
+      # marker.picture ({"url" => "#{view_context.image_url("pokeball.png")}", "width" => 40, "height" => 60})
+      marker.picture ({"url" => "#{view_context.image_url("pokeball_32.png")}", "width" => 32, "height" => 32})
       marker.infowindow render_to_string(partial: 'pokemons/infowindow', locals: {pokemon: pokemon})
 
     end
@@ -78,6 +89,6 @@ class PokemonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pokemon_params
-      params.require(:pokemon).permit(:name, :address)
+      params.require(:pokemon).permit(:name, :address, :type, :picture)
     end
 end

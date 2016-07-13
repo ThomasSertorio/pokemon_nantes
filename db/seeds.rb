@@ -6,12 +6,25 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Pokemon.destroy_all
-Pokemon.create(name: "Aspifion", address: "Place du massacre, Nantes")
-Pokemon.create(name: "Aspifouette", address: "12 Rue Paul Bellamy, Nantes")
-Pokemon.create(name: "Pikachu", address: "27 Rue Paul Bellamy, Nantes")
-Pokemon.create(name: "Raichu", address: "29 Rue Paul Bellamy, Nantes")
-Pokemon.create(name: "Carapuce", address: "45 Rue Paul Bellamy, Nantes")
-Pokemon.create(name: "Tortank", address: "56 Rue Paul Bellamy, Nantes")
-Pokemon.create(name: "Dracaufeu", address: "56 Rue de la Bastille, Nantes")
-Pokemon.create(name: "Salameche", address: "48 Rue de la Bastille, Nantes")
-Pokemon.create(name: "Bulbizard", address: "4 rue Chaptal, Paris")
+
+require 'open-uri'
+require 'json'
+streets = [
+  " Boulevard Adolphe Billault, 44200 Nantes",
+  " Rue de la Porte Gellée, 44200 Nantes",
+  " Rue des Français Libres, 44200 Nantes",
+  " Rue René Viviani, 44200 Nantes",
+  " Quai de Malakoff, 44000 Nantes"
+]
+(1..21).each do |i|
+  response = open("http://pokeapi.co/api/v2/pokemon/#{i}")
+  json = JSON.parse(response.read.to_s)
+  name = json['name']
+  category = json['types'][0]['type']['name']
+  back_default = json['sprites']['back_default']
+  front_default = json['sprites']['front_default']
+  address = i.to_s + streets.sample
+  Pokemon.create(name: name, address: address, category: category, front_default: front_default, back_default: back_default)
+end
+
+
