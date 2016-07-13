@@ -9,6 +9,9 @@ class PokemonsController < ApplicationController
     @markers = Gmaps4rails.build_markers(@pokemons) do |pokemon, marker|
       marker.lat pokemon.latitude
       marker.lng pokemon.longitude
+      # marker.picture ({url: "#{view_context.image_url("pokeball.png")}", width: 40, height: 60})
+      marker.infowindow render_to_string(partial: 'pokemons/infowindow', locals: {pokemon: pokemon})
+
     end
   end
 

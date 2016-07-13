@@ -1,3 +1,50 @@
 // Place all the styles related to the Pokemons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.poke_create{
+  display: inline-block;
+  margin: 2em;
+  position: fixed;
+  right: 0px;
+}
+.pokeball{
+  height: 90px;
+}
+.pokeball:hover,
+.pokeball:focus,
+.pokeball:active {
+  -webkit-animation-name: pokeball;
+  animation-name: pokeball;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+
+/* Icon Pulse */
+@-webkit-keyframes pokeball {
+  25% {
+    -webkit-transform: translateY(-20px) translateX(-20px);
+    transform: translateY(-20px) translateX(-20px);
+  }
+
+  75% {
+    -webkit-transform: translateY(+10px) translateX(+10px);
+    transform: translateY(+10px) translateX(+10px);
+  }
+}
+
+@keyframes pokeball {
+  25% {
+    -webkit-transform: translateY(-20px) translateX(-20px);
+    transform: translateY(-20px) translateX(-20px);
+  }
+
+  75% {
+    -webkit-transform: translateY(+10px) translateX(+10px);
+    transform: translateY(+10px) translateX(+10px);
+  }
+}

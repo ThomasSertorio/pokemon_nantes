@@ -1,0 +1,20 @@
+.wrapper{
+  display: flex;
+  .pokemon_list_container{
+    flex: 1;
+    overflow-y: scroll;
+    .pokemon_list{
+      display: flex;
+      flex-wrap: wrap;
+      height: 80vh;
+      .card{
+        flex: 0 0 250px;
+        margin: 1em;
+      }
+    }
+  }
+  .map_container{
+    flex: 1;
+  }
+
+}

@@ -1,0 +1,9 @@
+<div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('background.jpg');">
+  <div class="card-category">Pokemon</div>
+  <div class="card-description">
+    <h2><%= pokemon.name %></h2>
+    <p>Catch me at <%= pokemon.address %></p>
+  </div>
+  <img class="card-user avatar" src="user.jpg">
+  <%= link_to '', pokemon_path(pokemon), class:"card-link" %>
+</div>
