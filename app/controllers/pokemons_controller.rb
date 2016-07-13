@@ -5,11 +5,17 @@ class PokemonsController < ApplicationController
   # GET /pokemons.json
   def index
     @pokemons = Pokemon.all
+    # Let's DYNAMICALLY build the markers for the view.
+    @markers = Gmaps4rails.build_markers(@pokemons) do |pokemon, marker|
+      marker.lat pokemon.latitude
+      marker.lng pokemon.longitude
+    end
   end
 
   # GET /pokemons/1
   # GET /pokemons/1.json
   def show
+    @pokemon_coordinates = {latitude: @pokemon.latitude, longitude: @pokemon.longitude }
   end
 
   # GET /pokemons/new

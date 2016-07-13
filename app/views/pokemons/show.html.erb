@@ -12,3 +12,13 @@
 
 <%= link_to 'Edit', edit_pokemon_path(@pokemon) %> |
 <%= link_to 'Back', pokemons_path %>
+
+<% content_for(:after_js) do %>
+  <script>
+    $(document).ready(function(){
+      var pokemon_name = '<%= @pokemon.name %>'
+      var pokemon_coordinates = <%= raw @pokemon_coordinates.to_json %>
+      console.log(pokemon_coordinates.latitude + ", " + pokemon_coordinates.longitude)
+    })
+  </script>
+<% end %>

@@ -4,6 +4,16 @@ ruby '2.2.3'
 # Geocoder
 gem 'geocoder'
 
+
+# For Gmaps
+gem "coffee-rails"
+gem "gmaps4rails"
+
+# For Gmaps Front
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
+end
+
 gem 'rails', '4.2.3'
 gem 'puma'
 gem 'pg'
