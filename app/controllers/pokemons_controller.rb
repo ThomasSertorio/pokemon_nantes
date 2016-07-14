@@ -6,15 +6,13 @@ class PokemonsController < ApplicationController
   def index
     if !session[:location_detected]
       result = request.location
+      session[:city] = result.city
       session[:latitude] = result.latitude
       session[:longitude] = result.longitude
       session[:location_detected] = true
     end
-    if session[:latitude] == "0"# IP Geocoding didin't work
-      @pokemons = Pokemon.all
-    else
-      @pokemons = Pokemon.near([session[:latitude], session[:longitude]], 20)
-    end
+    @visitor_city = session[:city]
+    @pokemons = Pokemon.all
     # Let's DYNAMICALLY build the markers for the view.
     @markers = Gmaps4rails.build_markers(@pokemons) do |pokemon, marker|
       marker.lat pokemon.latitude

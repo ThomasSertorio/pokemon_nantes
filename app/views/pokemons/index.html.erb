@@ -5,6 +5,9 @@
 </div>
 <div class="container">
   <h1 class="text-center">Pokemon Land !</h1>
+  <% if @visitor_city %>
+    <p>Catching Pokemon near <%= @visitor_city %> ?</p>
+  <% end %>
 </div>
 <div class="container">
   <div class="wrapper">
