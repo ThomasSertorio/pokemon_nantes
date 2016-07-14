@@ -5,7 +5,7 @@ class PokemonsController < ApplicationController
   # GET /pokemons.json
   def index
     if !session[:location_detected]
-      session[:location_detected] = request.location
+      p session[:location_detected] = request.location
     end
     if session[:location_detected]["data"]["latitude"] == "0"# IP Geocoding didin't work
       @pokemons = Pokemon.all
